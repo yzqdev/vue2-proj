@@ -30,14 +30,14 @@ export default {
   computed: {},
   methods: {
     loadTop() {
-      this.$store.commit("UPDATE_LOADING", true);
+      store.commit("UPDATE_LOADING", true);
       this.$axios
         .get(`/data/category/GanHuo/type/${this.type}/page/${this.page}/count/10`)
         .then(res => {
           this.datas = this.datas.concat(res.data.data);
           this.busy = false;
           this.$nextTick(() => {
-            this.$store.commit("UPDATE_LOADING", false);
+            store.commit("UPDATE_LOADING", false);
           });
         });
     },

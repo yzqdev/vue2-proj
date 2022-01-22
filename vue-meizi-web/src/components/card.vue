@@ -14,15 +14,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "v-card",
-  props: {
-    data: {
-      type: Object,
-    },
-  },
-};
+<script setup>
+defineProps({
+  data:{
+    type:Object
+  }
+})
+
 </script>
 <style lang="scss">
 @import "./card";

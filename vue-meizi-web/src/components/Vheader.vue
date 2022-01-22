@@ -16,25 +16,20 @@
   </div>
 </template>
 
-<script>
-import vMenu from "@/components/menu";
+<script setup>
+import VMenu from "@/components/menu";
+import {Ref} from "vue";
 import {mapGetters, mapState} from "vuex";
+let show=ref(false)
 export default {
-  name: "v-header",
-  components: {
-    vMenu,
-  },
-  data() {
-    return {
-      show: false,
-    };
-  },
+
+
   computed: {
     ...mapGetters(["getHeaderTitle", "getMenuShow"]),
   },
   methods: {
     isShow() {
-      this.$store.commit("UPDATE_MENUSHOW");
+      store.commit("UPDATE_MENUSHOW");
     },
     hideDetail() {
       this.detailShow = false;

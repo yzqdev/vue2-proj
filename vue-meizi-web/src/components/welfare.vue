@@ -14,10 +14,9 @@
 </template>
 
 <script>
-import { objectDate } from "@/common/js/date";
 import vImg from "@/components/lazyloadImg/lazyimg";
 import vDetails from "@/components/details";
-import BScroll from "better-scroll";
+
 export default {
   data() {
     return {
@@ -57,7 +56,7 @@ console.log('到底了')
   },
   methods: {
     loadTop() {
-      this.$store.commit("UPDATE_LOADING", true);
+      store.commit("UPDATE_LOADING", true);
 
       console.log(this.$axios.defaults.baseURL, "水电费第三方第三方");
       this.$axios
@@ -72,7 +71,7 @@ console.log('到底了')
           // $nextTick() 在dom 重新渲染完后执行
           this.$nextTick(() => {
 
-            this.$store.commit("UPDATE_LOADING", false);
+            store.commit("UPDATE_LOADING", false);
           });
         });
     },
@@ -82,7 +81,7 @@ console.log('到底了')
 
     },
     selectDetails(id) {
-      this.$store.commit("UPDATE_LOADING", true);
+      store.commit("UPDATE_LOADING", true);
       this.$router.push("/welfare-detail/" + id);
     },
   },

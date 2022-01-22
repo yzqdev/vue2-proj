@@ -1,10 +1,9 @@
 import { createApp } from "vue";
 import store from "./store/store";
-import App from "./App";
+import App from "./App.vue";
 import axios from "./plugins/request/http";
 import { router } from "./router"; // 引入路由配置
 // 引入图片懒加载模块
-import { loadFromlLocal } from "./common/js/store"; // 公共方法：本地缓存
 import "./common/css/index.scss"; // 引入公共样式
 import { createVuetify } from "vuetify";
 import "vuetify/dist/vuetify.min.css";
@@ -16,6 +15,7 @@ const vuetify = createVuetify();
 app.use(vuetify);
 
 app.use(router);
+app.use(store);
 /**
  * 创建和挂载根实例。
  * 记得要通过 router 配置参数注入路由，

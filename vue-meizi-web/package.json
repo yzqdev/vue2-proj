@@ -5,14 +5,14 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "yarn&&vite",
+    "dev": "yarn&&vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^0.25.0",
     "better-scroll": "^2.4.2",
-
+    "dayjs": "^1.10.7",
     "sass": "^1.49.0",
     "swiper": "^7.4.1",
     "vue": "^3.2.28",

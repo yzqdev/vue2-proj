@@ -33,8 +33,11 @@
   </div>
 </template>
 
-<script>
-import { mapState } from "vuex";
+<script setup>
+import {mapState, useStore} from "vuex";
+import {reactive, toRefs} from "vue";
+import {useRouter} from "vue-router";
+let store=useStore()
 const MENU_CONVERT = {
   welfare: "福利",
   day: "本周最热",
@@ -42,33 +45,36 @@ const MENU_CONVERT = {
   android: "Android",
   web: "前端",
 };
+let router=useRouter()
+let state=reactive({
+  MENU_CONVERT:MENU_CONVERT
+})
+let {MENU_CONVERT}=toRefs(state)
+let props=defineProps({
+  show:{
+    type:Boolean
+  }
+})
+
+function gotoRoute(route) {
+   router.push({ name: route });
+}
+function updateHeader(title, menu) {
+  store.commit("UPDATE_TITLE", title);
+  store.commit("UPDATE_MENUSHOW");
+  if (menu === "day") {
+    store.commit("UPDATE_NEWS");
+  }
+}
+
 export default {
   name: "v-menu",
-  props: {
-    show: {
-      type: Boolean,
-    },
-  },
-  data() {
-    return {
-      MENU_CONVERT: MENU_CONVERT,
-    };
-  },
+
+
   computed: {
     ...mapState(["menus", "news"]),
   },
-  methods: {
-    gotoRoute(route) {
-      this.$router.push({ name: route });
-    },
-    updateHeader(title, menu) {
-      this.$store.commit("UPDATE_TITLE", title);
-      this.$store.commit("UPDATE_MENUSHOW");
-      if (menu === "day") {
-        this.$store.commit("UPDATE_NEWS");
-      }
-    },
-  },
+
 };
 </script>
 <style lang="scss">

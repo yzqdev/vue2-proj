@@ -9,7 +9,7 @@
                 <span class="iconfont icon-left"></span>
               </div>
               <div class="title">
-                {{ detailsData.publishedAt || time | formatDate }}
+                {{ detailsData.publishedAt || formatDate(time) }}
               </div>
             </header>
           </header>
@@ -19,54 +19,47 @@
     </transition>
   </div>
 </template>
-<script>
-import { formatDate } from "@/common/js/date";
+<script setup>
+import {formatDate} from "@/common/js/date";
 import BScroll from "better-scroll";
-import vDay from "@/components/day";
-export default {
-  name: "v-details",
-  props: {
-    time: {
-      type: String,
-    },
-    detailsData: {
-      type: Object,
-    },
-  },
-  data() {
-    return {
-      showFlag: false,
-    };
-  },
-  created() {},
-  methods: {
-    show() {
-      this.showFlag = true;
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$el, {
-            click: true,
-          });
-        } else {
-          this.scroll.refresh();
-        }
-        this.$refs.day.clearStyle();
+import VDay from "@/components/day.vue";
+import dayjs from "dayjs";
+import {nextTick, reactive, toRefs} from "vue";
+
+function formatDate(time) {
+
+  return dayjs.format(time, "yyyy-MM-dd");
+}
+
+let state = reactive({
+  showFlag: false
+})
+let {showFlag} = toRefs(state)
+let props = defineProps({
+  time: {
+    type: String
+  }, detailsData: {
+    type: Object
+  }
+})
+
+function show() {
+  state.showFlag = true;
+  nextTick(() => {
+    if (!this.scroll) {
+      this.scroll = new BScroll(this.$el, {
+        click: true,
       });
-    },
-    hide() {
-      this.showFlag = false;
-    },
-  },
-  filters: {
-    formatDate(time) {
-      let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd");
-    },
-  },
-  components: {
-    vDay,
-  },
-};
+    } else {
+      this.scroll.refresh();
+    }
+    this.$refs.day.clearStyle();
+  });
+}
+
+function hide() {
+  state.showFlag = false;
+}
 </script>
 
 <style lang="scss">
@@ -80,11 +73,13 @@ export default {
   height: 100%;
   background-color: #fff;
 }
+
 .details.fade-enter-active,
 .details.fade-leave-active {
   transition: all 0.2s linear;
   transform: translate3d(0, 0, 0);
 }
+
 .details.fade-enter,
 .details.fade-leave-active {
   opacity: 0;

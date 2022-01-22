@@ -7,8 +7,9 @@
 
 <script setup>
  import {loadFromlLocal} from "@/common/js/store";
- import {createRouter} from "vue-router";
-let router=createRouter()
+ import {useRouter} from "vue-router";
+let router=useRouter()
+
 
  if (!loadFromlLocal("gank", "wecome", false)) {
    router.push("/wecome");

@@ -9,86 +9,78 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import vImg from "@/components/lazyloadImg/lazyimg";
 import vDetails from "@/components/details";
+import {nextTick, onBeforeMount, onMounted, reactive, toRefs} from "vue";
 
-export default {
-  data() {
-    return {
-      leftData: [],
-      rightData: [],
-      busy: false,
-      page: 1,
-      showLazy: false,
-      pageCount: 10,
-      detailsData: {},
-      time: "",
-    };
-  },
-  mounted() {
-    this.loadTop();
-  },
-  components: {
-    vImg,
-    vDetails,
-  },
-  created() {
-    let id = this.$route.params.id;
-    console.log(id, "来看看扩扩");
-    this.$axios.get(`/post/${id}`).then((res) => {
-      this.detailsData = res.data.data;
-      this.$nextTick(() => {
-        this.$store.commit("UPDATE_LOADING", false);
+let state=reactive({
+  leftData: [],
+  rightData: [],
+  busy: false,
+  page: 1,
+  showLazy: false,
+  pageCount: 10,
+  detailsData: {},
+  time: ""
+})
+let {leftData,rightData,busy,page,showLazy,pageCount,detailsData,time}=toRefs(state)
+
+function loadTop() {
+  store.commit("UPDATE_LOADING", true);
+
+  this.$axios
+      .get(
+          `/data/category/Girl//type/Girl/page/${state.page}/count/${state.pageCount}`
+      )
+      .then((res) => {
+        console.log(res);
+        let left = res.data.data.filter((data, i) => {
+          return (i + 1) % 2 === 1;
+        });
+        let right = res.data.data.filter((data, i) => {
+          return (i + 1) % 2 !== 1;
+        });
+        state.leftData = state.leftData.concat(left);
+        state.rightData = state.rightData.concat(right);
+        state.busy = false;
+        // $nextTick() 在dom 重新渲染完后执行
+         nextTick(() => {
+          store.commit("UPDATE_LOADING", false);
+        });
       });
+}
+function loadMore() {
+  state.busy = true;
+   loadTop();
+  state.page++;
+}
+function selectDetails(id) {
+  store.commit("UPDATE_LOADING", true);
+
+  this.$axios.get(`/post/${id}`).then((res) => {
+    let data = res.data.data;
+    console.log(data, "详细");
+    state.detailsData = data;
+    this.$refs.details.show();
+     nextTick(() => {
+      store.commit("UPDATE_LOADING", false);
     });
-  },
-  methods: {
-    loadTop() {
-      this.$store.commit("UPDATE_LOADING", true);
-
-      console.log(this.$axios.defaults.baseURL, "水电费第三方第三方");
-      this.$axios
-        .get(
-          `/data/category/Girl//type/Girl/page/${this.page}/count/${this.pageCount}`
-        )
-        .then((res) => {
-          console.log(res);
-          let left = res.data.data.filter((data, i) => {
-            return (i + 1) % 2 === 1;
-          });
-          let right = res.data.data.filter((data, i) => {
-            return (i + 1) % 2 !== 1;
-          });
-          this.leftData = this.leftData.concat(left);
-          this.rightData = this.rightData.concat(right);
-          this.busy = false;
-          // $nextTick() 在dom 重新渲染完后执行
-          this.$nextTick(() => {
-            this.$store.commit("UPDATE_LOADING", false);
-          });
-        });
-    },
-    loadMore() {
-      this.busy = true;
-      this.loadTop();
-      this.page++;
-    },
-    selectDetails(id) {
-      this.$store.commit("UPDATE_LOADING", true);
-
-      this.$axios.get(`/post/${id}`).then((res) => {
-        let data = res.data.data;
-        console.log(data, "详细");
-        this.detailsData = data;
-        this.$refs.details.show();
-        this.$nextTick(() => {
-          this.$store.commit("UPDATE_LOADING", false);
-        });
-      });
-    },
-  },
-};
+  });
+}
+onBeforeMount(() => {
+  let id = this.$route.params.id;
+  console.log(id, "来看看扩扩");
+  this.$axios.get(`/post/${id}`).then((res) => {
+    state.detailsData = res.data.data;
+     nextTick(() => {
+      store.commit("UPDATE_LOADING", false);
+    });
+  });
+})
+onMounted(() => {
+  loadTop()
+})
 </script>
 
 <style lang="scss">
