@@ -6,80 +6,82 @@
  * component : 路由的组件路径
  */
 
-import welfare from "@/components/welfare";
-import welfareDetail from "@/components/welfareDetail";
-import hottest from "@/components/hottest";
-import wecome from "@/components/wecome/wecome";
-import web from "@/components/lists/web";
-import android from "@/components/lists/android";
-import ios from "@/components/lists/ios";
-import Index from "@/views/Index";
-import Today from "@/components/Today";
-import Apis from "@/views/Apis";
+import welfare from "@/components/welfare.vue";
+import welfareDetail from "@/components/welfareDetail.vue";
+import hottest from "@/components/hottest.vue";
+import wecome from "@/components/wecome/wecome.vue";
+import web from "@/components/lists/web.vue";
+import android from "@/components/lists/android.vue";
+import ios from "@/components/lists/ios.vue";
+import Index from "@/views/Index.vue";
+import Today from "@/components/Today.vue";
+import Apis from "@/views/Apis.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
+let routes = [
+  {
+    path: "/api",
+    name: "api",
+    component: Apis,
+  },
+  {
+    path: "/",
+    component: Index,
+    children: [
+      {
+        path: "/welfare",
+        name: "welfare",
+        component: welfare,
+      },
+      {
+        path: "/welfare-detail/:id",
 
- let routes= [
-    {
-      path: "/api",
-      name: "api",
-      component: Apis,
-    },
-    {
-      path: "/",
-      component: Index,
-      children: [
-        {
-          path: "/welfare",
+        name: "welfareDetail",
+        component: welfareDetail,
+      },
+      {
+        path: "/",
 
-          name: "welfare",
-          component: welfare,
-        },
-        {
-          path: "/welfare-detail/:id",
+        name: "home",
+        component: welfare,
+      },
+      {
+        path: "/day",
+        name: "day",
+        component: hottest,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/today",
+        name: "today",
+        component: Today,
+      },
+      {
+        path: "/ios",
+        name: "ios",
+        component: ios,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/android",
+        name: "android",
+        component: android,
+      },
+      {
+        path: "/web",
+        name: "web",
+        component: web,
+      },
+    ],
+  },
+  {
+    path: "/wecome",
+    name: "wecome",
+    component: wecome,
+  },
+];
 
-          name: "welfareDetail",
-          component: welfareDetail,
-        },
-        {
-          path: "/",
-
-          name: "home",
-          component: welfare,
-        },
-        {
-          path: "/day",
-          name: "day",
-          component: hottest,
-          meta: { requiresAuth: true },
-        },
-        {
-          path: "/today",
-          name: "today",
-          component: Today,
-        },
-        {
-          path: "/ios",
-          name: "ios",
-          component: ios,
-          meta: { requiresAuth: true },
-        },
-        {
-          path: "/android",
-          name: "android",
-          component: android,
-        },
-        {
-          path: "/web",
-          name: "web",
-          component: web,
-        },
-      ],
-    },
-    {
-      path: "/wecome",
-      name: "wecome",
-      component: wecome,
-    },
-  ]
-
-const router=creater
+export const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});

@@ -5,15 +5,14 @@
   </div>
 </template>
 
-<script>
-    export default {
-        name: "App",
-        mounted() {
-            // if(!localStorage.getItem("token")){
-            //   this.$router.push({name: 'welcome'});
-            // }
-        }
-    };
+<script setup>
+ import {loadFromlLocal} from "@/common/js/store";
+ import {createRouter} from "vue-router";
+let router=createRouter()
+
+ if (!loadFromlLocal("gank", "wecome", false)) {
+   router.push("/wecome");
+ }
 </script>
 
 <style>
