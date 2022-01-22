@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-import vImg from "@/components/lazyloadImg/lazyimg";
 import {nextTick, onMounted, reactive, ref, toRefs} from "vue";
 
 

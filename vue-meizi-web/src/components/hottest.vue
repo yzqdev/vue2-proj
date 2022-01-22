@@ -39,8 +39,8 @@
 </template>
 
 <script setup>
-import {Swiper, SwiperSlide} from "swiper";
-import VDay from "@/components/day";
+import {Swiper, SwiperSlide} from "swiper/vue";
+import VDay from "@/components/day.vue";
 import {nextTick, onBeforeMount, reactive, toRefs} from "vue";
 import {useStore} from "vuex";
 let store=useStore()
@@ -86,13 +86,13 @@ function getData() {
       .then((res) => {
         state.dataList = res.data.data;
         nextTick(() => {
-           store.commit("UPDATE_LOADING", false);
+           store.commit("updateLoading", false);
         });
       });
 }
 
 onBeforeMount(() => {
-   store.commit("UPDATE_LOADING", true);
+   store.commit("updateLoading", true);
   getData();
 })
 </script>

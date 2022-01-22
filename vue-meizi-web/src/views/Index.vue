@@ -6,33 +6,22 @@
   </div>
 </template>
 
-<script>
-import vMenu from "@/components/menu";
-import vHeader from "@/components/Vheader";
-import loading from "@/components/loading/loading.vue";
-import {mapGetters, mapState} from "vuex";
-export default {
-  name: "Index",
-  components: {
-    vMenu,
-    vHeader,
-    loading
-  },
-  data() {
-    return { firstShow: true, show: false };
-  },
-  computed: {
-    ...mapGetters(['getLoadingShow'])
-  },
-  methods: {
-    isShow() {
-      this.show = !this.show;
-    },
-    hideDetail() {
-      this.detailShow = false;
-    }
-  }
-};
+<script setup>
+import VMenu from "@/components/menu.vue";
+import VHeader from "@/components/Vheader.vue";
+import Loading from "@/components/loading/loading.vue";
+import {mapGetters, mapState, useStore} from "vuex";
+import {computed, reactive, toRefs} from "vue";
+let state=reactive({firstShow: true, show: false })
+let {firstShow,show}=toRefs(state)
+let store=useStore()
+let getLoadingShow=computed(()=>store.getters.getLoadingShow)
+function isShow() {
+  state.show = !state.show;
+}
+function hideDetail() {
+  state.detailShow = false;
+}
 </script>
 
 <style scoped></style>

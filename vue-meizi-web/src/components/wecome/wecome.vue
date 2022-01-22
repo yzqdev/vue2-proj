@@ -9,18 +9,20 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { savaToLocal } from "@/common/js/store";
-export default {
-  mounted() {
-    setTimeout(() => {
-      this.$router.push({
-        name: "welfare"
-      });
-      savaToLocal("gank", "wecome", true);
-    }, 2000);
-  }
-};
+import {onMounted} from "vue";
+import {useRouter} from "vue-router";
+let router=useRouter()
+onMounted(() => {
+  setTimeout(() => {
+     router.push({
+      name: "welfare"
+    });
+    savaToLocal("gank", "wecome", true);
+  }, 2000);
+})
+
 </script>
 <style lang="scss">
 @import './wecome';

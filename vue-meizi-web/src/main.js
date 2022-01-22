@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import store from "./store/store";
+import store from "@/store/store";
 import App from "./App.vue";
 import axios from "./plugins/request/http";
 import { router } from "./router"; // 引入路由配置
@@ -13,9 +13,9 @@ const app = createApp(App);
 app.config.globalProperties.$axios = axios;
 const vuetify = createVuetify();
 app.use(vuetify);
-
-app.use(router);
 app.use(store);
+app.use(router);
+
 /**
  * 创建和挂载根实例。
  * 记得要通过 router 配置参数注入路由，

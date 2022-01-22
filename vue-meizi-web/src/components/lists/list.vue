@@ -11,46 +11,38 @@
   </div>
 </template>
 
-<script>
-import vCard from "../card.vue";
-export default {
-  name: "v-list",
-  props: {
-    type: {
-      type: String
-    }
-  },
-  data() {
-    return {
-      datas: [],
-      page: 1,
-      busy: false
-    };
-  },
-  computed: {},
-  methods: {
-    loadTop() {
-      store.commit("UPDATE_LOADING", true);
-      this.$axios
-        .get(`/data/category/GanHuo/type/${this.type}/page/${this.page}/count/10`)
-        .then(res => {
-          this.datas = this.datas.concat(res.data.data);
-          this.busy = false;
-          this.$nextTick(() => {
-            store.commit("UPDATE_LOADING", false);
-          });
+<script setup>
+import VCard from "../card.vue";
+import {defineProps, nextTick, reactive, toRefs} from "vue";
+import {useStore} from "vuex";
+
+defineProps({type: {
+    type: String
+  }})
+let state=reactive({
+  datas: [],
+  page: 1,
+  busy: false
+})
+let {datas,page,busy}=toRefs(state)
+let store=useStore()
+function loadTop() {
+  store.commit("updateLoading", true);
+  this.$axios
+      .get(`/data/category/GanHuo/type/${state.type}/page/${state.page}/count/10`)
+      .then(res => {
+        state.datas = state.datas.concat(res.data.data);
+       state.busy = false;
+         nextTick(() => {
+          store.commit("updateLoading", false);
         });
-    },
-    loadMore() {
-      this.busy = true;
-      this.loadTop();
-      this.page++;
-    }
-  },
-  components: {
-    vCard
-  }
-};
+      });
+}
+function loadMore() {
+  state.busy = true;
+   loadTop();
+  state.page++;
+}
 </script>
 <style >
 .list {

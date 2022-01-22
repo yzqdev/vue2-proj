@@ -10,11 +10,11 @@
 </template>
 
 <script setup>
-import vImg from "@/components/lazyloadImg/lazyimg";
-import vDetails from "@/components/details";
 import {nextTick, onBeforeMount, onMounted, reactive, toRefs} from "vue";
+import {useStore} from "vuex";
+import {getWalfareDetail} from "@/plugins/request/api";
 
-let state=reactive({
+let state = reactive({
   leftData: [],
   rightData: [],
   busy: false,
@@ -24,15 +24,14 @@ let state=reactive({
   detailsData: {},
   time: ""
 })
-let {leftData,rightData,busy,page,showLazy,pageCount,detailsData,time}=toRefs(state)
+let {leftData, rightData, busy, page, showLazy, pageCount, detailsData, time} = toRefs(state)
+let store = useStore()
 
 function loadTop() {
-  store.commit("UPDATE_LOADING", true);
+  store.commit("updateLoading",true)
 
-  this.$axios
-      .get(
-          `/data/category/Girl//type/Girl/page/${state.page}/count/${state.pageCount}`
-      )
+
+      getWalfareDetail({pageNum:page,pageSize:pageCount})
       .then((res) => {
         console.log(res);
         let left = res.data.data.filter((data, i) => {
@@ -45,36 +44,39 @@ function loadTop() {
         state.rightData = state.rightData.concat(right);
         state.busy = false;
         // $nextTick() 在dom 重新渲染完后执行
-         nextTick(() => {
-          store.commit("UPDATE_LOADING", false);
+        nextTick(() => {
+          store.commit("updateLoading", false);
         });
       });
 }
+
 function loadMore() {
   state.busy = true;
-   loadTop();
+  loadTop();
   state.page++;
 }
+
 function selectDetails(id) {
-  store.commit("UPDATE_LOADING", true);
+  store.commit("updateLoading", true);
 
   this.$axios.get(`/post/${id}`).then((res) => {
     let data = res.data.data;
     console.log(data, "详细");
     state.detailsData = data;
     this.$refs.details.show();
-     nextTick(() => {
-      store.commit("UPDATE_LOADING", false);
+    nextTick(() => {
+      store.commit("updateLoading", false);
     });
   });
 }
+
 onBeforeMount(() => {
   let id = this.$route.params.id;
   console.log(id, "来看看扩扩");
   this.$axios.get(`/post/${id}`).then((res) => {
     state.detailsData = res.data.data;
-     nextTick(() => {
-      store.commit("UPDATE_LOADING", false);
+    nextTick(() => {
+      store.commit("updateLoading", false);
     });
   });
 })

@@ -17,30 +17,23 @@
 </template>
 
 <script setup>
-import VMenu from "@/components/menu";
-import {Ref} from "vue";
-import {mapGetters, mapState} from "vuex";
+import VMenu from "@/components/menu.vue";
+import {computed, ref} from "vue";
+import { useStore} from "vuex";
+let store=useStore()
 let show=ref(false)
-export default {
+let detailShow=ref(true)
+let getHeaderTitle=computed(() => {
+  return store.getters.getHeaderTitle
+})
+let getMenuShow=computed(()=>store.getters.getMenuShow)
 
-
-  computed: {
-    ...mapGetters(["getHeaderTitle", "getMenuShow"]),
-  },
-  methods: {
-    isShow() {
-      store.commit("UPDATE_MENUSHOW");
-    },
-    hideDetail() {
-      this.detailShow = false;
-    },
-  },
-  //    store: {
-  //      getters: {
-  //        headerTitle: getHeaderTitle
-  //      }
-  //    }
-};
+function isShow() {
+  store.commit("updateMenuShow");
+}
+function hideDetail() {
+   detailShow.value = false;
+}
 </script>
 <style lang="scss">
 .header {

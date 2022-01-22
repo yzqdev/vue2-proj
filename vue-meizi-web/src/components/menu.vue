@@ -35,19 +35,17 @@
 
 <script setup>
 import {mapState, useStore} from "vuex";
-import {reactive, toRefs} from "vue";
+import {computed, reactive, toRefs} from "vue";
 import {useRouter} from "vue-router";
 let store=useStore()
-const MENU_CONVERT = {
-  welfare: "福利",
-  day: "本周最热",
-  ios: "IOS",
-  android: "Android",
-  web: "前端",
-};
+
 let router=useRouter()
 let state=reactive({
-  MENU_CONVERT:MENU_CONVERT
+  MENU_CONVERT: { welfare: "福利",
+    day: "本周最热",
+    ios: "IOS",
+    android: "Android",
+    web: "前端",}
 })
 let {MENU_CONVERT}=toRefs(state)
 let props=defineProps({
@@ -60,22 +58,17 @@ function gotoRoute(route) {
    router.push({ name: route });
 }
 function updateHeader(title, menu) {
-  store.commit("UPDATE_TITLE", title);
-  store.commit("UPDATE_MENUSHOW");
+  store.commit("updateTitle", title);
+  store.commit("updateMenuShow");
   if (menu === "day") {
-    store.commit("UPDATE_NEWS");
+    store.commit("updateNews");
   }
 }
+let menus=computed(() => {
+  return store.state.menus
+})
+let news=computed(()=>store.state.news)
 
-export default {
-  name: "v-menu",
-
-
-  computed: {
-    ...mapState(["menus", "news"]),
-  },
-
-};
 </script>
 <style lang="scss">
 .menu .menu-list {

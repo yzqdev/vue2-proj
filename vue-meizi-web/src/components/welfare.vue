@@ -2,9 +2,9 @@
   <div class="welfare-wrapper" ref="wrapper">
     <div class="welfare-center">
       <figure
-        v-show="dataList.length > 0"
-        v-for="data in dataList"
-        @click="selectDetails(data._id)"
+          v-show="dataList.length > 0"
+          v-for="data in dataList"
+          @click="selectDetails(data._id)"
       >
         <v-img :imgUrl="data.url"></v-img>
       </figure>
@@ -13,89 +13,87 @@
   </div>
 </template>
 
-<script>
-import vImg from "@/components/lazyloadImg/lazyimg";
-import vDetails from "@/components/details";
+<script setup>
+import VImg from "@/components/lazyloadImg/lazyimg.vue";
+import {useStore} from "vuex";
+import {nextTick, onMounted, reactive, toRefs} from "vue";
+import {useRouter} from "vue-router";
+import {getWalfare} from "@/plugins/request/api";
 
-export default {
-  data() {
-    return {
-      dataList: [],
-      scroll: "",
-      busy: false,
-      page: 1,
-      pageCount: 50,
-      detailsData: {},
-      time: "",
-    };
-  },
-  mounted() {
-    let that=this
-    window.onscroll = function () {
-      //变量scrollTop是滚动条滚动时，距离顶部的距离
-      var scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      //变量windowHeight是可视区的高度
-      var clientHeight =
-        document.documentElement.clientHeight || document.body.clientHeight;
-      //变量scrollHeight是滚动条的总高度
-      var scrollHeight =
-        document.documentElement.scrollHeight || document.body.scrollHeight;
-      //滚动条到底部的条件
-      console.log(scrollTop,clientHeight,scrollHeight)
-      if (scrollHeight > clientHeight && scrollTop + clientHeight === scrollHeight) {
-console.log('到底了')
-        that.loadMore()
-      }
-    };
-    this.loadTop();
-  },
-  components: {
-    vImg,
-    vDetails,
-  },
-  methods: {
-    loadTop() {
-      store.commit("UPDATE_LOADING", true);
+let store = useStore()
+let router = useRouter()
+let state = reactive({
+  dataList: [],
+  scroll: "",
+  busy: false,
+  page: 1,
+  pageCount: 50,
+  detailsData: {},
+  time: ""
+})
+let {dataList, scroll, busy, page, pageCount, detailsData, time} = toRefs(state)
 
-      console.log(this.$axios.defaults.baseURL, "水电费第三方第三方");
-      this.$axios
-        .get(
-          `/data/category/Girl//type/Girl/page/${this.page}/count/${this.pageCount}`
-        )
-        .then((res) => {
-          console.log(res, "获取列表信息");
-          this.dataList.push(...res.data.data);
+function loadTop() {
+  store.commit("updateLoading", true);
 
-          this.busy = false;
-          // $nextTick() 在dom 重新渲染完后执行
-          this.$nextTick(() => {
 
-            store.commit("UPDATE_LOADING", false);
-          });
+      getWalfare({pageNum:state.page,pageSize:state.pageCount}).then((res) => {
+        console.log(res, "获取列表信息");
+        state.dataList.push(...res.data.data);
+
+        state.busy = false;
+        // $nextTick() 在dom 重新渲染完后执行
+        nextTick(() => {
+
+          store.commit("updateLoading", false);
         });
-    },
-    loadMore() {
-      this.page++;
-      this.loadTop();
+      });
+}
 
-    },
-    selectDetails(id) {
-      store.commit("UPDATE_LOADING", true);
-      this.$router.push("/welfare-detail/" + id);
-    },
-  },
-};
+function loadMore() {
+  state.page++;
+  loadTop();
+
+}
+
+function selectDetails(id) {
+  store.commit("updateLoading", true);
+  router.push("/welfare-detail/" + id);
+}
+
+onMounted(() => {
+
+  window.onscroll = function () {
+    //变量scrollTop是滚动条滚动时，距离顶部的距离
+    var scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+    //变量windowHeight是可视区的高度
+    var clientHeight =
+        document.documentElement.clientHeight || document.body.clientHeight;
+    //变量scrollHeight是滚动条的总高度
+    var scrollHeight =
+        document.documentElement.scrollHeight || document.body.scrollHeight;
+    //滚动条到底部的条件
+    console.log(scrollTop, clientHeight, scrollHeight)
+    if (scrollHeight > clientHeight && scrollTop + clientHeight === scrollHeight) {
+      console.log('到底了')
+      loadMore()
+    }
+  };
+   loadTop();
+})
 </script>
 
 <style lang="scss">
 .welfare-wrapper {
   display: flex;
   overflow: scroll;
+
   .welfare-center {
     width: 100%;
 
     max-width: 1100px;
+
     figure {
       width: 95%;
       background: #fefefe;
@@ -104,10 +102,12 @@ console.log('到底了')
       margin: 0 2px 15px;
       display: inline-block;
       z-index: 11;
+
       img {
         width: 100%;
         height: auto;
       }
+
       figcaption {
         font-size: 0.9rem;
         color: #444;

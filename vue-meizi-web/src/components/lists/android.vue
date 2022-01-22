@@ -2,11 +2,7 @@
   <v-list :type="'Android'"></v-list>
 </template>
 
-<script >
-  import vList from './list.vue';
-  export default {
-    components: {
-      vList
-    }
-  };
+<script setup>
+  import VList from './list.vue';
+
 </script>

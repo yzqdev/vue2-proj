@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="details">
     <transition name="fade">
       <div v-show="showFlag" class="details">
         <div>
@@ -24,7 +24,7 @@ import {formatDate} from "@/common/js/date";
 import BScroll from "better-scroll";
 import VDay from "@/components/day.vue";
 import dayjs from "dayjs";
-import {nextTick, reactive, toRefs} from "vue";
+import {nextTick, reactive, toRefs,ref} from "vue";
 
 function formatDate(time) {
 
@@ -32,7 +32,8 @@ function formatDate(time) {
 }
 
 let state = reactive({
-  showFlag: false
+  showFlag: false,
+  scroll:{}
 })
 let {showFlag} = toRefs(state)
 let props = defineProps({
@@ -42,18 +43,19 @@ let props = defineProps({
     type: Object
   }
 })
-
+let details=ref(null)
+let day=ref(null)
 function show() {
   state.showFlag = true;
   nextTick(() => {
-    if (!this.scroll) {
-      this.scroll = new BScroll(this.$el, {
+    if (!state.scroll) {
+      state.scroll = new BScroll(details.value, {
         click: true,
       });
     } else {
-      this.scroll.refresh();
+      state.scroll.refresh();
     }
-    this.$refs.day.clearStyle();
+     day.clearStyle();
   });
 }
 
