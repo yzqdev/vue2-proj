@@ -1,8 +1,7 @@
 import axios from "axios";
- import qs from "qs";
+import qs from "qs";
 
 // 环境的切换
-const nodeEnv = process.env;
 
 axios.defaults.baseURL = "/api";
 
@@ -11,7 +10,7 @@ axios.defaults.retryDelay = 1000;
 axios.defaults.timeout = 15000;
 // 请求操作
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     // 这里的config包含每次请求的内容
     // 判断token
     if (config.method === "post") {
@@ -19,7 +18,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  err => {
+  (err) => {
     return Promise.reject(err);
   }
 );
