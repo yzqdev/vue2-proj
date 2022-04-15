@@ -1,0 +1,16 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+}
+
+type Account {
+  name: String
+  sex: String
+}
+
+type Query {
+  hello: String
+  name: String
+  tet: Account
+}

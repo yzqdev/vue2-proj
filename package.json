@@ -1,0 +1,11 @@
+{
+  "workspaces": [
+    "packages/*"
+  ],
+  "name": "vue-meizi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://gitee.com/yzqdev/vue-meizi.git",
+  "author": "yzqdev <yzqdev@outlook.com>",
+  "license": "MIT"
+}

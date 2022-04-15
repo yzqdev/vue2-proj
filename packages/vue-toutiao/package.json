@@ -1,0 +1,33 @@
+{
+  "name": "toutiao",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "prettier --write **/*.{vue,js,json}"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "prettier": "^2.5.1",
+    "qs": "^6.10.2",
+    "swiper": "^6.7.0",
+    "vite-plugin-html": "^2.1.1",
+    "vite-plugin-vue2": "^1.9.0",
+    "vue": "^2.6.14",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-router": "^3.5.3",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "vite": "^2.7.6",
+    "swiper": "7.3.4",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "license": "ISC"
+}
