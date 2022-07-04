@@ -2,10 +2,14 @@
   "workspaces": [
     "packages/*"
   ],
-  "name": "vue-meizi",
+  "name": "vue-proj",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "repository": "https://gitee.com/yzqdev/vue-meizi.git",
   "author": "yzqdev <yzqdev@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "vue2": "yarn workspace vue2tstutor dev"
+  }
 }
