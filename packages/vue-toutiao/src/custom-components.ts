@@ -1,4 +1,4 @@
-import Vue from "vue";
+ 
 import IconSvg from "@/components/Icon-svg/index.vue";
 import Github from "@/components/Github.vue";
 import NoneData from "@/components/NoneData/index.vue";
@@ -15,21 +15,24 @@ import {
   showCircleLoading,
   hideCircleLoading
 } from "@/components/CircleLoading/full-loading";
-Vue.component("Icon", IconSvg);
-Vue.component("Github", Github);
-Vue.component("NoneData", NoneData);
-Vue.component("NoneData2", NoneData2);
-Vue.component("HeaderBar", HeaderBar);
-Vue.component("SwitchCheck", SwitchCheck);
-Vue.component("CircleLoading", CircleLoading);
-Vue.component("FullCircleLoading", FullCircleLoading);
-Vue.component("DefaultLoading", DefaultLoading);
+import { App } from "vue";
 
-Vue.prototype.$alert = Alert;
-Vue.prototype.$showLoading = showLoading;
-Vue.prototype.$hideLoading = hideLoading;
-Vue.prototype.$showCircleLoading = showCircleLoading;
-Vue.prototype.$hideCircleLoading = hideCircleLoading;
-const install = Vue => {};
+const install = (app :App)=> {
+  app.component("Icon", IconSvg);
+  app.component("Github", Github);
+  app.component("NoneData", NoneData);
+  app.component("NoneData2", NoneData2);
+  app.component("HeaderBar", HeaderBar);
+  app.component("SwitchCheck", SwitchCheck);
+  app.component("CircleLoading", CircleLoading);
+  app.component("FullCircleLoading", FullCircleLoading);
+  app.component("DefaultLoading", DefaultLoading);
+
+  app.config.globalProperties.$alert = Alert;
+  app.config.globalProperties.$showLoading = showLoading;
+  app.config.globalProperties.$hideLoading = hideLoading;
+  app.config.globalProperties.$showCircleLoading = showCircleLoading;
+  app.config.globalProperties.$hideCircleLoading = hideCircleLoading;
+};
 
 export default install;

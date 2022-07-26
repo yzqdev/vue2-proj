@@ -47,7 +47,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .headeline-top-bar {
   padding: 0.1rem 0;
   .text-active {
@@ -71,7 +71,7 @@ export default {
 }
 .item:nth-child(1) {
   svg {
-    color: @theme-blue;
+    color: $theme-blue;
   }
 }
 .item:nth-child(2) {
@@ -81,7 +81,7 @@ export default {
 }
 .item:nth-child(3) {
   svg {
-    color: @theme-red;
+    color: $theme-red;
   }
 }
 </style>

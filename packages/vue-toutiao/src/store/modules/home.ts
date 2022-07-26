@@ -1,6 +1,6 @@
 import { newsList } from "./classify";
 import { Local } from "@/utils/storage";
-import Vue from "vue";
+ 
 import homeJson from "./home.json";
 const home = {
   state: {
@@ -62,11 +62,11 @@ const home = {
     },
     GETHOMELIST(state, list) {
       state.newsList[state.newsIndex].list = list;
-      Vue.prototype.$set(
-        state.newsList,
-        state.newsIndex,
-        state.newsList[state.newsIndex]
-      );
+      // Vue.prototype.$set(
+      //   state.newsList,
+      //   state.newsIndex,
+      //   state.newsList[state.newsIndex]
+      // );
     },
   },
 };

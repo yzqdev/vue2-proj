@@ -54,8 +54,8 @@ export default {
   }
 };
 </script>
-<style lang="less">
-@import './assets/less/color';
+<style lang="scss">
+@import './styles/color.scss';
 #app {
   width: 100%;
   height: 100%;

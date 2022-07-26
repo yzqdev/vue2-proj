@@ -76,7 +76,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .box {
   margin-top: 0.1rem;
   padding-left: 0.1rem;
@@ -102,7 +102,7 @@ export default {
     color: #bbb;
   }
   small {
-    color: @font-gray;
+    color: $font-gray;
     font-size: 0.12rem;
   }
 }
@@ -110,6 +110,6 @@ export default {
   text-align: center;
   line-height: 0.4rem;
   margin-top: 0.3rem;
-  color: @theme-red;
+  color: $theme-red;
 }
 </style>

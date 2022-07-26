@@ -25,7 +25,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .footer-wrapper {
   position: absolute;
   left: 0;
@@ -54,7 +54,7 @@ export default {
     }
   }
   .active {
-    color: @theme-red;
+    color: $theme-red;
   }
 }
 </style>

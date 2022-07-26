@@ -16,7 +16,7 @@
     </div>
   </div>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .loading-wrapper-phone {
   position: fixed;
   z-index: 1000;

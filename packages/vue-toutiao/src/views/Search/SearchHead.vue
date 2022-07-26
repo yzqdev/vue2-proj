@@ -32,7 +32,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .search-title {
   width: 100%;
   height: 0.5rem;
@@ -40,7 +40,7 @@ export default {
   .search {
     width: e("calc(100% - 0.45rem)");
     position: relative;
-    color: @font-gray;
+    color: $font-gray;
     .search-icon {
       position: absolute;
       left: 0.06rem;
@@ -52,7 +52,7 @@ export default {
       height: 0.3rem;
       border: none;
       outline: none;
-      background: @bg-color;
+      background: $bg-color;
       text-indent: 0.3rem;
       border-radius: 0.04rem;
       font-size: 0.12rem;
@@ -61,7 +61,7 @@ export default {
   }
   .close {
     z-index: 9;
-    color: @theme-blue;
+    color: $theme-blue;
   }
 }
 </style>

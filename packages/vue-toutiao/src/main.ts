@@ -1,11 +1,12 @@
-import Vue from "vue";
+ 
 import App from "./App.vue";
 import router from "./router/permission.js";
 import store from "./store";
-
+import {createApp} from 'vue';
+const app=createApp(App)
 /*样式*/
 import "./styles/index.css";
-import "./styles/index.less";
+import "./styles/index.scss";
 
 /*工具类*/
 import "./utils/iconfont.js";
@@ -15,16 +16,16 @@ import "./utils/rem.js";
 import "./directive";
 
 import { Cookie } from "@/utils/storage";
-Vue.prototype.Cookie = Cookie;
+app.config.globalProperties.Cookie = Cookie;
 
 // 返回
-Vue.prototype.back = route => {
+app.config.globalProperties.back = route => {
   route.animate = 2;
   history.go(-1);
 };
 
 // 跳转文章页
-Vue.prototype.skip = (route, id) => {
+app.config.globalProperties.skip = (route, id) => {
   route.push("/article/" + id);
 };
 
@@ -34,12 +35,12 @@ import customComponents from "./custom-components.js";
 
 // swiper
 
-import VueAwesomeSwiper from "vue-awesome-swiper";
-import "swiper/swiper-bundle.min.css";
-Vue.use(VueAwesomeSwiper);
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+ 
+import install from "./custom-components";
+import { scrollDirective } from "./directive/scroll";
+install(app)
+ scrollDirective(app)
+App.use(store)
+app.use(router)
+app .mount('#app')
+ 

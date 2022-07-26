@@ -89,8 +89,10 @@
 </template>
 <script>
 
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.min.css'
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+
+  // Import Swiper styles
+  import 'swiper/css';
 import { mapGetters } from "vuex";
 export default {
   components: {
@@ -127,7 +129,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .swiper-mask {
   width: 100%;
   height: e("calc(100% - 0.8rem)");
@@ -148,8 +150,8 @@ export default {
     border-bottom: 0.02rem solid transparent;
   }
   .tab-active {
-    color: @theme-red;
-    border-bottom: 0.02rem solid @theme-red;
+    color: $theme-red;
+    border-bottom: 0.02rem solid $theme-red;
   }
 }
 #swiper-container {
@@ -162,7 +164,7 @@ export default {
   }
   .tip {
     line-height: 0.4rem;
-    color: @font-gray;
+    color: $font-gray;
     padding: 0 0.1rem;
     font-size: 0.14rem;
   }
@@ -170,7 +172,7 @@ export default {
     padding: 0.2rem 0.1rem;
     background-color: #fff;
     h4 {
-      color: @font-normal;
+      color: $font-normal;
     }
     p {
       font-size: 0.16rem;

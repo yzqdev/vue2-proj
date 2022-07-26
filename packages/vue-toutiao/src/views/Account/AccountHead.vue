@@ -65,7 +65,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .head-wrapper {
   width: 100%;
   background-color: #777;
@@ -87,7 +87,7 @@ export default {
 }
 .hd-m {
   font-size: 0.12rem;
-  color: @font-gray;
+  color: $font-gray;
   padding-bottom: 0.1rem;
   span {
     color: #fff;
@@ -116,7 +116,7 @@ export default {
   }
   &:nth-child(1) {
     svg {
-      color: @theme-blue;
+      color: $theme-blue;
     }
   }
   &:nth-child(2) {
@@ -126,7 +126,7 @@ export default {
   }
   &:nth-child(3) {
     svg {
-      color: @theme-red;
+      color: $theme-red;
     }
   }
 }

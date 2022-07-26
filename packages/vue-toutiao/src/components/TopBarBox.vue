@@ -55,7 +55,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .top-bar-box {
   position: fixed;
   top: 100%;
@@ -91,7 +91,7 @@ export default {
       text-align: center;
       line-height: 0.35rem;
       background: #f0f0f0;
-      color: @font-gray;
+      color: $font-gray;
     }
   }
 

@@ -111,7 +111,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .home-wrapper {
   overflow-y: scroll;
 }
@@ -135,7 +135,7 @@ export default {
   .item {
     padding: 0.2rem 0.1rem;
     h4 {
-      color: @font-normal;
+      color: $font-normal;
     }
     p {
       font-size: 0.16rem;

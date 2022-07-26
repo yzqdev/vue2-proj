@@ -47,7 +47,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .recommend {
   background-color: #fff;
   padding: 0.1rem;
@@ -97,14 +97,14 @@ h4 {
     color: #bbb;
   }
   small {
-    color: @font-gray;
+    color: $font-gray;
     font-size: 0.12rem;
   }
 }
 .tip {
   text-align: center;
   font-size: 0.12rem;
-  color: @font-gray;
+  color: $font-gray;
   margin-top: 0.2rem;
 }
 </style>

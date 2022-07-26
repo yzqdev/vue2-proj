@@ -65,7 +65,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login-wrapper {
   position: fixed;
   width: 100%;
@@ -106,7 +106,7 @@ export default {
       left: 0.15rem;
       top: 0.45rem;
       font-size: 0.1rem;
-      color: @theme-red;
+      color: $theme-red;
       opacity: 0;
     }
     .animate {
@@ -159,7 +159,7 @@ export default {
     line-height: 0.4rem;
     color: #f4f4f4;
     border: none;
-    background-color: @theme-bg-red;
+    background-color: $theme-bg-red;
   }
 }
 </style>

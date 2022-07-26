@@ -31,7 +31,7 @@
     </div>
   </section>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .body-wrapper {
   border-left: none;
   border-right: none;
@@ -49,7 +49,7 @@
     color: #bbb;
   }
   span {
-    color: @font-gray;
+    color: $font-gray;
     font-size: 0.12rem;
     margin-right: 0.08rem;
   }

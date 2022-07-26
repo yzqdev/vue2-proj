@@ -111,7 +111,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .video-wrapper {
   overflow-y: scroll;
 }
@@ -204,7 +204,7 @@ export default {
       > * {
         margin-left: 0.14rem;
         font-size: 0.12rem;
-        color: @font-gray;
+        color: $font-gray;
       }
     }
   }

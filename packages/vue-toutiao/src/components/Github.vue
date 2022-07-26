@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .github-corner {
   fill: #4ab7bd;
   color: #fff;

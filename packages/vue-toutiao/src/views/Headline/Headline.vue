@@ -119,7 +119,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .header-container {
   height: e("calc(100% - 0.4rem)");
   overflow-y: scroll;
@@ -147,17 +147,17 @@ export default {
       color: #111;
     }
     .info-box {
-      color: @font-gray;
+      color: $font-gray;
       font-size: 0.1rem;
     }
   }
   .item-t-r {
     font-size: 0.12rem;
     .like-y {
-      color: @font-gray;
+      color: $font-gray;
     }
     .like-n {
-      color: @theme-red;
+      color: $theme-red;
     }
   }
 }
@@ -188,7 +188,7 @@ export default {
   }
   span {
     font-size: 0.1rem;
-    color: @font-gray;
+    color: $font-gray;
   }
 }
 .item-b {
@@ -197,13 +197,13 @@ export default {
     height: 0.4rem;
     text-align: center;
     font-size: 0.14rem;
-    color: @font-gray;
+    color: $font-gray;
     span {
       margin-left: 0.08rem;
     }
   }
   .item-b-icon-active {
-    color: @theme-red;
+    color: $theme-red;
   }
 }
 </style>

@@ -25,11 +25,15 @@
   </div>
 </template>
 <script>
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+
+  // Import Swiper styles
+  import 'swiper/css';
 import { mapGetters } from "vuex";
 import TopBarBox from "@/components/TopBarBox.vue";
 export default {
   components: {
-    TopBarBox
+    TopBarBox,Swiper,SwiperSlide
   },
   data() {
     return {
@@ -56,18 +60,18 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 @bar-color: #f4f5f6;
 .home-topbar-wrapper {
   height: 0.4rem;
   line-height: 0.4rem;
-  color: @font-normal;
+  color: $font-normal;
   font-size: 0.16rem;
   text-align: center;
   position: relative;
   background: @bar-color;
   .active {
-    color: @theme-red;
+    color: $theme-red;
   }
   .top-menu-bar {
     width: e("calc(100% - 0.4rem)");
@@ -103,7 +107,7 @@ export default {
         content: " ";
         height: 0.17rem;
         width: 0.04rem;
-        background-color: @theme-red;
+        background-color: $theme-red;
       }
       &:before {
         transform: rotate(90deg);

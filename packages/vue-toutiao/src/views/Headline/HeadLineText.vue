@@ -32,7 +32,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .text-wrapper {
   position: fixed;
   width: 100%;
@@ -54,7 +54,7 @@ export default {
       pointer-events: none;
     }
     .t-active {
-      color: @theme-blue;
+      color: $theme-blue;
       pointer-events: inherit;
     }
   }

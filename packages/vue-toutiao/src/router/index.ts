@@ -1,5 +1,4 @@
-import Vue from "vue";
-import Router from "vue-router";
+ 
 import Search from "@views/Search/Search.vue";
 import Article from "@views/Article.vue";
 import System from "@views/System.vue";
@@ -7,9 +6,9 @@ import Record from "@views/Record.vue";
 import Jingdong from "@views/Jingdong.vue";
 import Msg from "@views/Msg.vue";
 import Mall from "@views/Mall.vue";
-import Feedback from "@views/Feedback.vue";
-Vue.use(Router);
-Router.prototype.animate = 0;
+import { createRouter, createWebHashHistory } from "vue-router";
+ import Feedback from '@/views/Feedback.vue'
+ 
 const Layout = () => {
   import("@/views/Layout/Layout.vue");
 };
@@ -122,7 +121,7 @@ export const constantRouterMap = [
 ];
 export const asyncRouterMap = [];
 
-export const router = new Router({
-  // mode: 'history',
-  routes: constantRouterMap,
-});
+export const router = createRouter({
+  history:createWebHashHistory(),
+  routes:constantRouterMap
+})

@@ -1,5 +1,5 @@
 import store from "../store";
-import Vue from "vue";
+ 
 import { router } from "./index";
 
 router.beforeEach((to, from, next) => {
@@ -9,9 +9,9 @@ router.beforeEach((to, from, next) => {
       // 是否已经登陆
       next();
     } else {
-      Vue.prototype.$alert("请先登录!").then(() => {
+      alert("请先登录!") 
         store.state.user.isLogin = true;
-      });
+     
     }
   } else {
     if (to.meta.page) store.state.app.pageLoading = true;

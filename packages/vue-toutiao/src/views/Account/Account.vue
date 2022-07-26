@@ -20,7 +20,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .account-container {
   height: e("calc(100% - 0.5rem)");
 }

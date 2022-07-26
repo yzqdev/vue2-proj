@@ -66,7 +66,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .article-wrapper {
   padding: 0 0.1rem;
   .head {
@@ -97,7 +97,7 @@ export default {
     }
     .like-y {
       color: #f4f4f4;
-      background-color: @theme-bg-red;
+      background-color: $theme-bg-red;
     }
     .like-n {
       color: #bbb;
@@ -139,8 +139,8 @@ export default {
       }
     }
     .like-y {
-      color: @theme-red;
-      border-color: @theme-red;
+      color: $theme-red;
+      border-color: $theme-red;
     }
   }
 }

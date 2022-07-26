@@ -35,7 +35,7 @@
     </footer> -->
   </section>
 </template>
-<style lang="less">
+<style lang="scss">
 </style>
 <script>
 export default {
