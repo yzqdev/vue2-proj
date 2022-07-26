@@ -5,28 +5,26 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "lint": "vue-cli-service lint",
-    "ncu": "ncu&&ncu -u&&yarn"
+    "lint": "prettier --write src/**/*.{vue,js,ts,css,scss}" 
   },
   "dependencies": {
-    "axios": "^0.25.0",
-    "core-js": "^3.23.3",
-    "echarts": "^4.9.0",
+    "axios": "^1.0.0-alpha.1",
+    "core-js": "^3.24.0",
+    "echarts": "^5.3.3",
     "js-cookie": "^3.0.1",
     "prettier": "^2.7.1",
     "screenfull": "^6.0.2",
     "v-charts": "^1.19.0",
-    "vite-plugin-vue2": "^1.9.3",
-    "vue": "^2.7.0",
-    "vue-i18n": "^8.27.2",
+    "vite-plugin-vue": "^2.0.2",
+    "vue": "^2.7.8",
+    "vue-i18n": "^9.2.0-beta.40",
     "vue-particles": "^1.0.9",
-    "vue-router": "^3.5.4",
-    "vuex": "^3.6.2"
+    "vue-router": "^4.1.2",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "bootstrap": "^5.1.3",
-    "sass": "^1.53.0",
-    "vite": "^2.9.13",
-    "vue-template-compiler": "^2.7.0"
+    "bootstrap": "^5.2.0",
+    "sass": "^1.54.0",
+    "vite": "^3.0.3"
   }
 }
