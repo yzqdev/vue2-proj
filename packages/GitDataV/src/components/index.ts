@@ -1,4 +1,3 @@
-import particles from "./Particles.vue";
 import Github from "./Github.vue";
 import Icon from "./Icon.vue";
 import header from "./Header.vue";
@@ -9,12 +8,12 @@ import Nodata from "./Nodata.vue";
 import nouser from "./Nouser.vue";
 import loading from "./Loading.vue";
 import Topnav from "./Topnav.vue";
+import { App } from "vue";
 const components = {
   header,
   foot,
   bg,
   Icon,
-  particles,
   Github,
    Databox,
   Nodata,
@@ -23,12 +22,12 @@ const components = {
   Topnav,
 };
 
-const install = (Vue = {}) => {
+const install = (app:App) => {
   if (install.installed) return;
   Object.keys(components).forEach((component) => {
-    Vue.component(components[component].name, components[component]);
+    app.component(components[component].name, components[component]);
   });
-  Vue.prototype.$notice = Notification;
+ app.config.globalProperties.$notice = Notification;
   // Vue.prototype.$message = Message
   install.installed = true;
 };

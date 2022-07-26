@@ -44,7 +44,7 @@
       >
         <div class="content-wapper">
           <!-- <ve-line :data="chartData" :extend="extend"></ve-line>-->
-          <ve-bar :data="repoData" :extend="extend" :height="'350px'"></ve-bar>
+          <div id="main" style="width:100%;height: ;350px"></div>
           <nodata
             :nodata="$t('data.myevent.noRepoSize')"
             v-if="noRepoSize"
@@ -66,115 +66,102 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import * as echarts from "echarts";
 import dnumber from "./Dnumber.vue";
 import MyEvent from "./MyEvent.vue";
 import { LINE_DATA } from "../test/data";
-export default {
-  components: {
-    dnumber,
-   MyEvent,
-  },
-  props: {
-    numberData: Object,
-    username: String,
-  },
-  data() {
-    this.extend = {
-      series: {
-        label: {
-          normal: {
-            show: true,
-          },
-        },
-      },
-      legend: {
-        textStyle: { color: "#fff" },
-        right: "6%",
-      },
-      yAxis: {
-        axisLabel: {
-          textStyle: {
-            color: "#fff",
-          },
-        },
-      },
-      xAxis: {
-        axisLabel: {
-          textStyle: {
-            color: "#fff",
-          },
-        },
-      },
-    };
+import { userEventsApi, userReposApi } from "@/plugins/apis";
+type EChartsOption = echarts.EChartsOption;
 
-    return {
-      chartData: LINE_DATA,
-      myevent: [],
-      noMyevent: false,
-      repoData: {
-        columns: ["reposName", "size", "forks"],
-        rows: [],
+let props = defineProps({
+  numberData: Object,
+  username: String,
+});
+let repoData = $ref<RepoData>({
+  columns: ["reposName", "size", "forks"],
+  rows: [],
+});
+let extend = $ref<EChartsOption>({});
+interface RepoRows {
+  reposName: string;
+  size: string;
+  forks: string;
+}
+interface RepoData {
+  columns: string[];
+  rows: RepoRows[];
+}
+let chartData = $ref(LINE_DATA);
+let myevent = $ref([]);
+let noMyevent = $ref(false);
+
+let noRepoSize = $ref(false);
+
+async function getData(username: string) {
+  let res1 = await userEventsApi(username);
+  //我最近操作
+  let data1 = res1.data 
+  if (data1.length < 1) {
+    noMyevent = true;
+  } else {
+    myevent = data1;
+    //console.log(this.myevent)
+  }
+  let res2 = await userReposApi(username);
+
+  //每个仓库的大小
+  let data2 = res2.data
+  if (data2.length < 1) {
+    noRepoSize = true;
+  } else {
+    let dataR = [];
+    for (var i = 0; i < data2.length; i++) {
+      let reposName = data2[i].name;
+      let size = data2[i].size;
+      let forks = data2[i].forks;
+      let objR = {
+        reposName: reposName,
+        size: size,
+        forks: forks,
+      };
+      dataR.push(objR);
+    }
+    //console.log(dataR);
+    repoData.rows = dataR;
+  }
+  extend = {
+    series: [
+      {
+        data: repoData.rows.map((item) => {
+          return item.size;
+        }),
+        type: "bar",
       },
-      noRepoSize: false,
-    };
-  },
-  methods: {
-    getData(username) {
-      let comUrl = "/users/";
-      let url1 = comUrl + username + "/events";
-      let url2 = comUrl + username + "/repos";
-      this.$axios
-        .all([this.$axios.get(url1), this.$axios.get(url2)])
-        .then(
-          this.$axios.spread((res1, res2) => {
-            //我最近操作
-            let data1 = JSON.parse(JSON.stringify(res1.data));
-            if (data1.length < 1) {
-              this.noMyevent = true;
-            } else {
-              this.myevent = data1;
-              //console.log(this.myevent)
-            }
-
-            //每个仓库的大小
-            let data2 = JSON.parse(JSON.stringify(res2.data));
-            if (data2.length < 1) {
-              this.noRepoSize = true;
-            } else {
-              let dataR = [];
-              for (var i = 0; i < data2.length; i++) {
-                let reposName = data2[i].name;
-                let size = data2[i].size;
-                let forks = data2[i].forks;
-                let objR = {
-                  reposName: reposName,
-                  size: size,
-                  forks: forks,
-                };
-                dataR.push(objR);
-              }
-              //console.log(dataR);
-              this.repoData.rows = dataR;
-              //console.log(this.repoData.rows)
-            }
-
-            return;
-          })
-        )
-        .catch((err) => {
-          console.log(err.message);
-        });
+    ],
+    legend: {
+      textStyle: { color: "#fff" },
+      right: "6%",
     },
-  },
-  watch: {
-    username(username) {
-      if (username) {
-        this.getData(username);
-      }
+    yAxis: {
+      type: "value",
     },
-  },
-};
+    xAxis: {
+      type: "category",
+      data: repoData.columns,
+    },
+  };
+  console.log(extend);
+}
+onBeforeMount( async () => {
+  await getData(props.username);
+});
+onMounted(() => {
+  var chartDom = document.getElementById("main")!;
+  var myChart = echarts.init(chartDom);
+
+  myChart.setOption(extend);
+});
 </script>
 
 <style lang="scss">

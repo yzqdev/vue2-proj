@@ -1,17 +1,19 @@
 // vite.config.js
-const resolve = path.resolve;
+
 import { defineConfig } from "vite";
-// import Markdown from 'vite-plugin-md'
-import { createVuePlugin } from "vite-plugin-vue2";
-// const { injectHtml } = require("vite-plugin-html");
-import path from "path";
+import AutoImport from "unplugin-auto-import/vite";
+import   createVuePlugin   from "@vitejs/plugin-vue";
+import * as path from "path";
+const resolve = path.resolve;
+const pathSrc = path.resolve(__dirname, "src");
 export default defineConfig({
   plugins: [
-    createVuePlugin(/*options*/{include:[/\.vue$/ ]}),
-    // injectHtml({
-    //   injectData: genHtmlOptions("vite"),
-    // }),
-
+    createVuePlugin(  { reactivityTransform:true }),
+    AutoImport({
+      imports: ["vue", "vue-router", "vue/macros", "pinia", "@vueuse/core"],
+    
+      dts: path.resolve(pathSrc, "types", "auto-imports.d.ts"),
+    }),
   ],
 
   resolve: {
@@ -42,5 +44,4 @@ export default defineConfig({
   },
 });
 
-// 这里的 options 可配置 vueTemplateOptions， jsx
-// 详情查看 https://github.com/underfin/vite-plugin-vue2
+ 

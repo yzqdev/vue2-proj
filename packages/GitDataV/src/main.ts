@@ -1,30 +1,26 @@
-import Vue from "vue";
+import  {createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import VueParticles from "vue-particles";
-import VCharts from "v-charts";
+ 
+ 
 import Vcomp from "./components/index";
-import Axios from "@/plugins/http";
+ 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/iconfont/iconfont.css";
 import "./assets/css/global.scss";
 import i18n from "./lang";
-import VueI18n from "vue-i18n";
+ import http from '@/plugins/http'
+const app=createApp(App)
+ 
+ app.config.globalProperties.$axios=http
+app.use(Vcomp);
+app.use(i18n );
 
-Vue.use(VueParticles);
-Vue.use(VCharts);
-Vue.use(Vcomp);
-Vue.use(VueI18n, {
-  i18n: (key, value) => i18n.t(key, value)
-});
+ app.use(router)
+ app.use(store) 
+ app.use(i18n)
+ app.mount('#app')
+ 
 
-Vue.prototype.$axios = Axios;
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App)
-}).$mount("#app");
+ 

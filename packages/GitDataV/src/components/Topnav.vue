@@ -17,38 +17,34 @@
   </div>
 </template>
 
-<script>
-import screenfull from "screenfull";
-export default {
-  name: "topnav",
-  computed: {
-    lang: {
-      get() {
-        return this.$store.state.language;
-      }
-    }
-  },
-  methods: {
-    fullBox() {
-      if (!screenfull.enabled) {
-        return false;
-      }
-      screenfull.toggle();
-    },
-    changeLen() {
-      if (this.lang === "en") {
-        this.$i18n.locale = "zh";
-        this.$store.dispatch("setLanguage", "zh");
-      } else {
-        this.$i18n.locale = "en";
-        this.$store.dispatch("setLanguage", "en");
-      }
-    },
-    goHome() {
-      this.$router.push({ path: "/" });
-    }
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { useFullscreen } from "@vueuse/core";
+
+const { isFullscreen, enter, exit, toggle } = useFullscreen();
+let store = useStore();
+let router = useRouter();
+
+let lang = computed((params) => {
+  return store.state.language;
+});
+function fullBox() {
+  toggle();
+}
+function changeLen() {
+  if (lang.value === "en") {
+    // this.$i18n.locale = "zh";
+    store.dispatch("setLanguage", "zh");
+  } else {
+    // this.$i18n.locale = "en";
+    store.dispatch("setLanguage", "en");
   }
-};
+}
+function goHome() {
+  router.push({ path: "/" });
+}
 </script>
 
 <style lang="scss">
