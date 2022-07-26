@@ -7,8 +7,8 @@
 </template>
 <script>
 import BottomNavigation from "@/components/BottomNavigation.vue";
-import Header from "@/components/Header";
-import MessageContent from "@/components/MessageContent";
+import Header from "@/components/Header.vue";
+import MessageContent from "@/components/MessageContent.vue";
 export default {
   components: {
     MessageContent,

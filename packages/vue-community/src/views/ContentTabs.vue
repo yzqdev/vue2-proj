@@ -40,7 +40,7 @@
             </div>
             <div class="timer">
               <span>{{ item.reply_count }} / {{ item.visit_count }}</span>
-              <span>{{ item.last_reply_at | timeago }}</span>
+              <span>{{   timeago(item.last_reply_at ) }}</span>
             </div>
           </router-link>
         </section>
@@ -82,14 +82,12 @@ export default {
   update() {
     window.scrollValue = 200;
   },
-  filters: {
-    timeago(val) {
+
+
+  methods: {   timeago(val) {
       let time = new Date(val);
       return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
-    }
-  },
-
-  methods: {
+    },
     loadMore() {
       if (!this.nomore) {
         this.loading = true;

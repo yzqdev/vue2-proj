@@ -29,9 +29,9 @@
 </template>
 <script>
 import axios from "axios";
-import marked from "marked";
-import BottomNavigation from "../components/BottomNavigation.vue";
-import Header from "@/components/Header";
+import {marked} from "marked";
+import BottomNavigation from "@/components/BottomNavigation.vue";
+import Header from "@/components/Header.vue";
 export default {
   components: {
     Header,

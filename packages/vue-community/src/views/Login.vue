@@ -14,7 +14,7 @@
 </template>
 <script>
 import BottomNavigation from "@/components/BottomNavigation.vue";
-import Header from "@/components/Header";
+import Header from "@/components/Header.vue";
 export default {
   components: {
     Header,

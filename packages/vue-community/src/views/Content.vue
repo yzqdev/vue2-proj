@@ -26,7 +26,7 @@
           <span>发布于 {{ data.create_at | timeago }}</span>
           <span>作者 {{ data.author.loginname }}</span>
           <span>{{ data.visit_count }} 次浏览</span>
-          <span>来自 {{ data.tab | tab }}</span>
+          <span>来自 {{    tab (data.tab)}}</span>
         </div>
       </header>
       <!-- 内容区 -->
@@ -53,7 +53,7 @@
               </router-link>
               <span class="name">{{ list.author.loginname }}</span>
               <span class="timer"
-                >{{ index + 1 }}楼 • {{ list.create_at | timeago }}</span
+                >{{ index + 1 }}楼 • {{   timeago( list.create_at) }}</span
               >
             </div>
             <!-- 未登录状态下点赞 -->
@@ -149,7 +149,7 @@
 <script>
 /*eslint-disable */
 import isheader from "../components/Header.vue";
-import Vue from "vue";
+
 import axios from "axios";
 import {format} from "timeago.js";
 export default {
@@ -190,12 +190,8 @@ export default {
       }
     }
   },
-  filters: {
-    timeago(val) {
-      let time = new Date(val);
-      return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
-    },
-    tab(val) {
+
+  methods: { tab(val) {
       let valMap = new Map([
           ["share", "分享"],
           ["ask", "问答"],
@@ -203,9 +199,10 @@ export default {
         ]),
         result = valMap.get(val);
       return result;
-    }
-  },
-  methods: {
+    },timeago(val) {
+      let time = new Date(val);
+      return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
+    },
     getData() {
       // 主题详情
       let id = this.$route.query.id;
@@ -317,8 +314,8 @@ export default {
       let arr = this.data.replies;
       arr.map((item, i) => {
         index === i
-          ? Vue.set(item, "reply_show", true)
-          : Vue.set(item, "reply_show", false);
+          ?  item["reply_show"]=true
+          :  item["reply_show"]=false
       });
 
       this.single_reply = "@" + this.data.replies[index].author.loginname + " ";
@@ -328,7 +325,7 @@ export default {
       this.single_reply = "";
       let arr = this.data.replies;
       arr[index].reply_show = false;
-      Vue.set(arr, index, arr[index]);
+      // Vue.set(arr, index, arr[index]);
     },
     on_collect() {
       //收藏主题

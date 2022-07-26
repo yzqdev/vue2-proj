@@ -1,15 +1,25 @@
 // vite.config.js
 const resolve = path.resolve;
 import { defineConfig } from "vite";
-import { createVuePlugin } from "vite-plugin-vue2";
-
-import { createHtmlPlugin } from 'vite-plugin-html'
+import vue from "@vitejs/plugin-vue";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { VantResolver } from "unplugin-vue-components/resolvers";
+const pathSrc = path.resolve(__dirname, "src");
 import { genScssOptions } from "./config";
-import path from "path";
+import * as path from "path";
 export default defineConfig({
   plugins: [
-    createVuePlugin(/*options*/),
-
+    vue({ reactivityTransform: true }),
+    AutoImport({
+      imports: ["vue", "vue-router", "vue/macros", ],
+      resolvers: [VantResolver()],
+      dts: path.resolve(pathSrc, "types", "auto-imports.d.ts"),
+    }),
+    Components({
+      resolvers: [VantResolver()],
+      dts: path.resolve(pathSrc, "types", "components.d.ts"),
+    }),
   ],
   css: {
     preprocessorOptions: {
@@ -20,12 +30,7 @@ export default defineConfig({
     //导入时想要省略的扩展名列表。注意，不 建议忽略自定义导入类型的扩展名（例如：.vue），因为它会干扰 IDE 和类型支持。
     alias: [
       { find: "@", replacement: resolve(__dirname, "./src") },
-      { find: "@views", replacement: resolve(__dirname, "./src/views") },
-      {
-        find: "@components",
-        replacement: path.resolve(__dirname, "./src/components"),
-      },
-      { find: "@utils", replacement: path.resolve(__dirname, "./src/utils") },
+
     ],
   },
   build: {
@@ -35,13 +40,13 @@ export default defineConfig({
   server: {
     port: 3600,
     proxy: {
-      '/api': {
+      "/api": {
         // target: 'http://localhost:1500',
-        target: 'https://vue-js.com/api/v1/',
+        target: "https://vue-js.com/api/v1/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-    }
+    },
   },
 });
 

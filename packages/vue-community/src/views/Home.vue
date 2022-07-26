@@ -9,8 +9,8 @@
 </template>
 <script>
 /*eslint-disable */
-import Header from '../components/Header.vue'
-import BottomNavigation from '../components/BottomNavigation.vue'
+import Header from '@/components/Header.vue'
+import BottomNavigation from '@/components/BottomNavigation.vue'
 import ContentTabs from './ContentTabs.vue'
 export default {
     components: {

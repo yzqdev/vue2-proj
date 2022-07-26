@@ -5,8 +5,7 @@ import axios from "axios";
 
 axios.defaults.baseURL =  '/api';
 
-axios.defaults.retry = 4;
-axios.defaults.retryDelay = 1000;
+
 axios.defaults.timeout = 15000;
 // 请求操作
 

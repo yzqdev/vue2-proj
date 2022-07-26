@@ -30,7 +30,7 @@
           <p>来自：《{{ item.topic.title }}》</p>
         </div>
         <div class="timer">
-          <span>{{ item.reply.create_at | timeago }}</span>
+          <span>{{    timeago(item.reply.create_at) }}</span>
         </div>
       </router-link>
       <mu-list-item v-if="!hasnot_read_messages.length">暂无消息</mu-list-item>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import marked from "marked";
+import {marked }from "marked";
 import {format} from "timeago.js";
 export default {
   name: "MessageContent",
@@ -100,13 +100,14 @@ export default {
       this.getData();
     }
   },
-  filters: {
-    timeago(val) {
+
+
+
+  methods: {
+      timeago(val) {
       let time = new Date(val);
       return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
-    }
-  },
-  methods: {
+    },
     handleTabChange(val) {
       this.activeTab = val;
     },

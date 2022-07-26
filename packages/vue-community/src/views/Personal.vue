@@ -81,9 +81,9 @@
   </div>
 </template>
 <script>
-import timeago from "timeago.js";
+import {format} from "timeago.js";
 import BottomNavigation from "../components/BottomNavigation.vue";
-import Header from "@/components/Header";
+import Header from "@/components/Header.vue";
 export default {
   components: {
     Header,
@@ -106,14 +106,13 @@ export default {
       });
     }
   },
-  filters: {
-    timeago(val) {
-      let time = new Date(val);
-      let thistime = timeago();
-      return thistime.format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
-    }
-  },
+
   methods: {
+     timeago(val) {
+      let time = new Date(val);
+
+      return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
+    },
     getData() {
       this.$axios
         .post("/accesstoken", {

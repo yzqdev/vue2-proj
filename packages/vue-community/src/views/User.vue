@@ -7,7 +7,7 @@
       <span class="name">{{ user_msg.loginname }}</span>
       <span class="score">积分：{{ user_msg.score }}</span>
       <span class="create_at"
-        >注册时间：{{ user_msg.create_at | timeago }}</span
+        >注册时间：{{  timeago (user_msg.create_at )}}</span
       >
       <div class="msg">
         <van-list>
@@ -83,13 +83,11 @@ export default {
   created() {
     this.getData();
   },
-  filters: {
-    timeago(val) {
+
+  methods: {timeago(val) {
       let time = new Date(val);
       return  format(time, "zh_CN"); //将UTC时间转换格式---> 几天前,几小时前...
-    }
-  },
-  methods: {
+    },
     getData() {
       let author_name = this.$route.query.user;
       this.$axios.get(author_name).then(response => {

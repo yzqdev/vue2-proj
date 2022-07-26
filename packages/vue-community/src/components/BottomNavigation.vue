@@ -31,17 +31,8 @@
     </van-tabbar>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      active: "home"
-    };
-  },
-  created() {},
+<script setup lang="ts">
 
-  methods: {}
-};
 </script>
 <style>
 .bottom_nav .mu-bottom-nav-shift-wrapper {
